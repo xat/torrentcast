@@ -15,7 +15,7 @@ raspberry. Then run:
 npm install torrentcast -g
 ```
 
-You now now start the server by running ```torrentcast```.
+You can now start the server by running ```torrentcast```.
 By default it will spin up a HTTP Server listening on port 9090.
 
 ### Usage
