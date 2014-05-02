@@ -45,7 +45,7 @@ var clearTempFiles = function() {
     if (err) return;
     files.forEach(function(file) {
       if (file.substr(0, 11) === 'torrentcast') {
-        fs.unlink(tempDir + file);
+        fs.rmdir(tempDir + file);
       }
     });
   });
