@@ -1,11 +1,12 @@
 var readTorrent = require('read-torrent'),
   bodyParser = require('body-parser'),
+  tempDir = require('os').tmpdir(),
   peerflix = require('peerflix'),
   uuid = require('node-uuid'),
   app = require('express')(),
   omx = require('omxctrl'),
+  path = require('path'),
   fs = require('fs'),
-  tempDir = '/tmp/',
   engine;
 
 var STATES = ['PLAYING', 'PAUSED', 'IDLE'];
@@ -37,7 +38,7 @@ var stop = function() {
 };
 
 var createTempFilename = function() {
-  return tempDir + 'torrentcast_' + uuid.v4();
+  return path.join(tempDir, 'torrentcast_' + uuid.v4());
 };
 
 var clearTempFiles = function() {
@@ -45,7 +46,7 @@ var clearTempFiles = function() {
     if (err) return;
     files.forEach(function(file) {
       if (file.substr(0, 11) === 'torrentcast') {
-        fs.rmdir(tempDir + file);
+        fs.rmdir(path.join(tempDir, file));
       }
     });
   });
@@ -88,7 +89,6 @@ for (var route in mappings) {
     });
   })(mappings[route]);
 }
-
 
 module.exports = function() {
   console.log('torrentcast running on port', PORT);
